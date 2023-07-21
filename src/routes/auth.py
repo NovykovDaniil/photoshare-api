@@ -216,3 +216,11 @@ async def change_password(
         status_code=status.HTTP_404_NOT_FOUND,
         detail=USER_NOT_FOUND,
     )
+
+@router.post("/logout")
+async def logout(
+    token_data: TokenLogoutModel,
+    db: Session = Depends(get_db),
+):
+    await token_service.ban_access_token(token_data.access_token, db)
+    return {"message": "Logged out successfully."}
