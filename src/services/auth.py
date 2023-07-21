@@ -81,6 +81,11 @@ class Token(Info):
                 detail="Could not validate credentials",
             )
 
+    @staticmethod
+    async def is_token_banned(token: str) -> bool:
+        result = await redis_client.get('banned')
+        return True if result and result.decode() == token else False
+
     async def get_current_user(
         self, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
     ):
@@ -89,6 +94,8 @@ class Token(Info):
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
+        if await self.is_token_banned(token):
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='You have logged out of your account, please log in again')
         try:
             payload = jwt.decode(token, self.SECRET, algorithms=[self.ALGORITHM])
             if payload["scope"] == "access_token":
@@ -102,8 +109,6 @@ class Token(Info):
         user = await repository_users.get_user_by_email(email, db)
         if user is None:
             raise credentials_exception
-        if await redis_client.get(token):
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='You have logged out of your account, please log in again')
         return user
 
     async def get_email_from_token(self, token: str):

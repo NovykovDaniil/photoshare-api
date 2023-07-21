@@ -49,7 +49,7 @@ ONLY_IMGS = "You can only upload images"
 NO_PHOTO_OR_NOT_YOUR = "There is no photo with such ID or it is not your photo"
 NO_PHOTO = "There is no photo with such ID"
 USER_ACTIVE_CHANGED = "User active status was successfully changed"
-SIGNED_OUT = 'We will be glad to see you again'
+LOGGED_OUT = 'Logged out successfully.'
 
 
 PHOTO_ESTIMATED = "Photo successfully estimated"
