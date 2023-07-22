@@ -82,6 +82,8 @@ async def create_photo(
     new_photo.tags.clear()
     if tags:
         tags = await inspect_tags(tags, db)
+        if len(tags) > 5:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=UP_TO_5_TAGS)
         for tag in tags:
             new_photo.tags.append(tag)
 
@@ -131,9 +133,11 @@ async def search_photos(tag: str, keyword: str, db: Session) -> List[Photo]:
 async def add_tags(photo_id: str, tags: List[str], user: User, db: Session) -> Photo:
     photo = await verify_record(photo_id, Photo, user, db)
     tags = await inspect_tags(tags, db)
+
     for tag in tags:
         photo.tags.append(tag)
-    photo.tags = photo.tags[:5]
+    if len(photo.tags) > 5:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=UP_TO_5_TAGS)
     db.add(photo)
     db.commit()
     db.refresh(photo)
