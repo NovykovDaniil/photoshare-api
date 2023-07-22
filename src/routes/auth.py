@@ -96,6 +96,14 @@ async def login(
     }
 
 
+@router.post("/logout")
+async def logout(
+    token: str = Depends(token_service.oauth2_scheme),
+):
+    await token_service.ban_access_token(token)
+    return {"message": LOGGED_OUT}
+
+
 @router.get("/refresh_token", response_model=TokenModel)
 async def refresh_token(
     credentials: HTTPAuthorizationCredentials = Security(security),
@@ -217,10 +225,3 @@ async def change_password(
         detail=USER_NOT_FOUND,
     )
 
-@router.post("/logout")
-async def logout(
-    token_data: TokenLogoutModel,
-    db: Session = Depends(get_db),
-):
-    await token_service.ban_access_token(token_data.access_token, db)
-    return {"message": "Logged out successfully."}
