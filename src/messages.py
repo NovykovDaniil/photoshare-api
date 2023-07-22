@@ -12,6 +12,7 @@ PHOTO_FOUND = "Photo successfully found"
 PHOTO_TAG_ADDED = "Tags successfully added"
 PHOTO_FILTER_ADDED = "Filter successfully added"
 NO_FILTER = 'There are no such filter'
+UP_TO_5_TAGS = 'You can add up to 5 tags'
 
 
 COMMENT_CREATED = "Comment successfully created"
