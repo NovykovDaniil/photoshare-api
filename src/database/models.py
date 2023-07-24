@@ -1,5 +1,6 @@
 import random
 import time
+from datetime import timedelta
 from enum import Enum as PyEnum
 
 from sqlalchemy import Column, String, Boolean, Table, Integer, Float, Enum, func
@@ -98,3 +99,25 @@ class Photo(Base):
     width = Column(Integer, nullable=True)
     height = Column(Integer, nullable=True)
     rating = Column(Float, nullable=True, default=None)
+
+
+class Story(Base):
+    __tablename__ = "stories"
+    id = Column(String, primary_key=True, default=generate_id, unique=True)
+    url = Column(String, default=None, nullable=True)
+    user_id = Column("user_id", ForeignKey("users.id", ondelete="CASCADE"), default=None, nullable=False)
+    created_at = Column(DateTime, default=func.now())
+    expire_to = Column(DateTime, default=func.now() + timedelta(hours=24))
+
+
+class Subscription(Base):
+    __tablename__ = 'subscriptions'
+    id = Column(String, primary_key=True, default=generate_id, unique=True)
+    subscriber_id = Column("subscriber_id", ForeignKey("users.id", ondelete="CASCADE"), default=None, nullable=False)
+    author_id = Column(String, nullable=False)
+    
+
+
+
+
+
