@@ -12,7 +12,7 @@ PHOTO_FOUND = "Photo successfully found"
 PHOTO_TAG_ADDED = "Tags successfully added"
 PHOTO_FILTER_ADDED = "Filter successfully added"
 NO_FILTER = 'There are no such filter'
-UP_TO_5_TAGS = 'You can add up to 5 tags'
+TOO_MANY_TAGS = 'You can not add more than 5 tags to photo'
 
 
 COMMENT_CREATED = "Comment successfully created"
@@ -44,6 +44,7 @@ NO_USERNAME = "There is no user with such username"
 USER_FOUND = "User was successfully found"
 USER_EDITED = "User bio was successfully edited"
 NOT_YOUR_ACCOUNT = "It is not your account"
+USER_ID_NOT_FOUND = 'There are no user with such id'
 BANNED = "Your account has been banned"
 NO_RECORD = "There is no record with such ID or it is not your record"
 ONLY_IMGS = "You can only upload images"
@@ -59,3 +60,16 @@ ESTIMATES_FOUND = "Estimates were successfully found"
 ESTIMATES_NOT_FOUND = "There are no estimates"
 NO_ESTIMATE = "There is no estimate with such ID"
 ESTIMATE_DELETED = "Estimate was successfully deleted"
+
+
+STORY_CREATED = 'Story successfully created'
+ONLY_VIDEO = 'You can upload only videos'
+NO_STORY = 'There are no story with such id'
+STORY_FOUND = 'Story was successfully found'
+
+
+SUBSCRIBED = 'You have successfully subscribed'
+SUBS_FOUND = 'Subscriptions successfully found'
+SUBS_NOT_FOUND = 'You haven\'t subscribed to anyone'
+NO_SUB = 'You were not subscribed to user with such ID'
+SUB_DELETED = 'You have successfully unsubscribed from the user'

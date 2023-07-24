@@ -59,7 +59,6 @@ class RequestEmail(BaseModel):
 
 
 class ChangePassword(BaseModel):
-    email: EmailStr
     current_password: str
     new_password: str
 
@@ -192,3 +191,42 @@ class EstimatesResponse(BaseModel):
 
 class EstimateDeleteModel(BaseModel):
     estimate_id: str
+
+
+class StoryIdModel(BaseModel):
+    story_id: str
+    
+
+class StoryDb(BaseModel):
+    id: str
+    url: str
+    user_id: str
+    created_at: str
+    expire_to: str
+
+    class Config:
+        orm_mode = True
+
+
+class StoryResponse(BaseModel):
+    story: StoryDb
+    detail: str
+
+
+class SubscriptionDb(BaseModel):
+    id: str
+    subscriber_id: str
+    author_id: str
+
+    class Config:
+        orm_mode = True
+
+
+class SubscriptionResponse(BaseModel):
+    subscription: SubscriptionDb
+    detail: str
+
+
+class SubscriptionsResponse(BaseModel):
+    subscriptions: List[SubscriptionDb]
+    detail: str
