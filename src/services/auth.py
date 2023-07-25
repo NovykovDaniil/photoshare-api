@@ -13,7 +13,7 @@ from src.repository import users as repository_users
 from src.conf.config import settings
 
 
-redis_client = redis.Redis(host=settings.redis_host, port=settings.redis_port, db=0, password=settings.redis_password)
+redis_client = redis.Redis(host=settings.redis_host, port=settings.redis_port, db=0,) #password=settings.redis_password)
 
 
 class Info:

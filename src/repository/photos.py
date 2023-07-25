@@ -63,13 +63,13 @@ async def create_photo(
             detail=ONLY_IMGS,
         )
 
-    public_id = UploadService.create_photo_name(user.email, "RestAPI")
+    public_id = UploadService.create_name(user.email, "RestAPI")
     r = UploadService.upload(file.file, public_id)
 
     with Image.open(file.file) as img:
         width, height = img.size
 
-    url = UploadService.get_photo_url(public_id, r.get("version"), width=width, height=height)
+    url = UploadService.get_url(public_id, r.get("version"), width=width, height=height)
 
     new_photo = Photo(
         description=description,
@@ -83,7 +83,7 @@ async def create_photo(
     if tags:
         tags = await inspect_tags(tags, db)
         if len(tags) > 5:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=UP_TO_5_TAGS)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=TOO_MANY_TAGS)
         for tag in tags:
             new_photo.tags.append(tag)
 
@@ -137,7 +137,7 @@ async def add_tags(photo_id: str, tags: List[str], user: User, db: Session) -> P
     for tag in tags:
         photo.tags.append(tag)
     if len(photo.tags) > 5:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=UP_TO_5_TAGS)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=TOO_MANY_TAGS)
     db.add(photo)
     db.commit()
     db.refresh(photo)

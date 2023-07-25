@@ -15,7 +15,7 @@ class UploadService:
     )
 
     @staticmethod
-    def create_photo_name(email: str, prefix: str):
+    def create_name(email: str, prefix: str):
         name = hashlib.sha256(email.encode()).hexdigest()[:12]
         return f"{prefix}/{name}"
 
@@ -23,12 +23,22 @@ class UploadService:
     def upload(file, public_id):
         r = cloudinary.uploader.upload(file, public_id=public_id, overwrite=True)
         return r
+    
+    @staticmethod
+    def upload_video(file, public_id):
+        r = cloudinary.uploader.upload(file, resource_type="video", public_id=public_id, overwrite=True)
+        return r
 
     @staticmethod
-    def get_photo_url(public_id, version, width, height):
+    def get_url(public_id, version, width, height):
         src_url = cloudinary.CloudinaryImage(public_id).build_url(
             width=width, height=height, crop="fill", version=version
         )
+        return src_url
+
+    @staticmethod
+    def get_video_url(public_id, version):
+        src_url = cloudinary.CloudinaryVideo(public_id).build_url(version=version)
         return src_url
 
     @staticmethod

@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient
 from pytest import fixture
+
 from src.services.photos import UploadService
+from src.database.db import get_db
 from main import app
 
 client = TestClient(app)
@@ -15,12 +17,12 @@ def db_session():
         db.close()
 
 
-def test_create_photo_name():
+def test_create_name():
     email = "test@example.com"
     prefix = "photos"
     expected_name = "photos/96c2f7e7a198"
 
-    photo_name = UploadService.create_photo_name(email, prefix)
+    photo_name = UploadService.create_name(email, prefix)
 
     assert photo_name == expected_name
 
@@ -33,13 +35,13 @@ def test_upload():
     assert response is not None
 
 
-def test_get_photo_url():
+def test_get_url():
     public_id = "test_public_id"
     version = "test_version"
     width = 200
     height = 200
 
-    url = UploadService.get_photo_url(public_id, version, width, height)
+    url = UploadService.get_url(public_id, version, width, height)
     assert url is not None
 
 
