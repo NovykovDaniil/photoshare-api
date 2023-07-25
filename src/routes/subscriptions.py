@@ -18,7 +18,7 @@ from src.schemas import (
     SubscriptionResponse,
     SubscriptionsResponse,
 )
-from src.database.models import Photo, User
+from src.database.models import User
 from src.repository import subscriptions as repository_subscriptions
 from src.services.auth import token_service
 from src.messages import *

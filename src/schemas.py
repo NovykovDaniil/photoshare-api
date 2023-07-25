@@ -21,6 +21,8 @@ class UserDb(BaseModel):
     created_at: datetime
     avatar: str
     photo_count: int
+    subscriptions: int
+    subscribers: int
     confirmed: bool
     is_active: bool
 
@@ -201,8 +203,8 @@ class StoryDb(BaseModel):
     id: str
     url: str
     user_id: str
-    created_at: str
-    expire_to: str
+    created_at: datetime
+    expire_to: datetime
 
     class Config:
         orm_mode = True
@@ -210,6 +212,11 @@ class StoryDb(BaseModel):
 
 class StoryResponse(BaseModel):
     story: StoryDb
+    detail: str
+
+
+class StoriesResponse(BaseModel):
+    stories: List[StoryDb]
     detail: str
 
 

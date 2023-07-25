@@ -49,6 +49,8 @@ class User(Base):
     confirmed = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     photo_count = Column(Integer, default=0, nullable=False)
+    subscriptions = Column(Integer, default=0)
+    subscribers = Column(Integer, default=0)
     reset_code = Column(Integer, nullable=True)
 
 
