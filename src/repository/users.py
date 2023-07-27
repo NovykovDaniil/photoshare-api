@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 
 from src.database.models import User, UserRole
+from src.services.role import role_service
 from src.schemas import UserModel
 from src.messages import *
 
@@ -60,7 +61,7 @@ async def get_user(username: str, db: Session) -> User:
 
 async def edit_user(username: str, bio: str, user: User, db: Session) -> User:
     user_ = await get_user(username, db)
-    if user_.username != user.username:
+    if user_.username != user.username or not await role_service.is_admin(user):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail=NOT_YOUR_ACCOUNT
         )
@@ -71,10 +72,12 @@ async def edit_user(username: str, bio: str, user: User, db: Session) -> User:
     return user_
 
 
-async def change_user_active(username: str, db: Session):
+async def change_user_active(username: str, user: User, db: Session):
     user_ = await get_user(username, db)
-    user_.is_active = not user_.is_active
-    db.add(user_)
-    db.commit()
-    db.refresh(user_)
-    return user_
+    if await role_service.is_admin(user):
+        user_.is_active = not user_.is_active
+        db.add(user_)
+        db.commit()
+        db.refresh(user_)
+        return user_
+    raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=NO_PERMISSIONS)

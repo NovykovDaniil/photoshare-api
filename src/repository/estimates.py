@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.database.models import Photo, User, Estimate
 from src.repository.photos import get_record
+from src.services.role import role_service
 from src.messages import *
 
 
@@ -43,7 +44,7 @@ async def estimate_photo(photo_id: str, estimate: int, user: User, db: Session) 
 async def delete_estimate(estimate_id: str, user: User, db: Session) -> Estimate:
     estimate = db.query(Estimate).filter(Estimate.id == estimate_id).first()
     photo = db.query(Photo).filter(Photo.id == estimate.photo_id).first()
-    if estimate and estimate.user_id == user.id:
+    if estimate and estimate.user_id == user.id or await role_service.is_admin(user):
         db.delete(estimate)
         db.commit()
         estimates = await get_estimates(photo.id, db)

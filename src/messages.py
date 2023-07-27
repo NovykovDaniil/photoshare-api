@@ -1,3 +1,6 @@
+from src.database.models import UserRole
+
+
 TAG_EXISTS = "Tag with such name exists"
 TAG_CREATED = "Tag successfully created"
 
@@ -79,3 +82,8 @@ NO_SUB = 'You were not subscribed to user with such ID'
 SUB_DELETED = 'You have successfully unsubscribed from the user'
 STORY_NOT_YOUR = 'It is not your story'
 AUTHOR_ID_NOT_FOUND = 'Author with such is was not found'
+
+
+ADMIN_PERMISSIONS = [UserRole.ADMIN]
+MODERATOR_PERMISSIONS = [UserRole.ADMIN, UserRole.MODERATOR]
+NO_PERMISSIONS = 'You do not have access to this route'
