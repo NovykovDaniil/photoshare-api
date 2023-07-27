@@ -6,11 +6,12 @@ from fastapi import UploadFile, HTTPException, status
 
 from src.database.models import User, Story, Subscription
 from src.services.photos import UploadService
+from src.services.role import role_service
 from src.messages import *
 
 
 async def verify_story(story: Story, user: User) -> bool:
-    if story.user_id == user.id:
+    if story.user_id == user.id or role_service.is_moder(user):
         return True
     return False
 

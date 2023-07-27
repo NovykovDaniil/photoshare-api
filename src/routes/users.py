@@ -12,7 +12,6 @@ from src.database.models import User
 from src.repository import users as repository_users
 from src.services.auth import token_service
 from src.messages import *
-from main import has_role
 
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -44,5 +43,5 @@ async def ban_user(
     user: User = Depends(token_service.get_current_user),
     db: Session = Depends(get_db),
 ):
-    user_ = await repository_users.change_user_active(body.username, db)
+    user_ = await repository_users.change_user_active(body.username, user, db)
     return {"user": user_, "detail": USER_ACTIVE_CHANGED}

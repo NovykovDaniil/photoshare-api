@@ -9,6 +9,7 @@ from src.database.models import Photo, User, Tag, Comment
 from src.schemas import TagModel
 from src.repository.tags import create_tag
 from src.services.photos import UploadService
+from src.services.role import role_service
 from src.messages import *
 
 
@@ -39,15 +40,14 @@ async def verify_record(
     record_id: str, table: Photo | Comment, user: User, db: Session
 ) -> Photo | Comment:
     record = await get_record(record_id, table, db)
-    if record:
-        if record is None or record.user_id != user.id:
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail=NO_RECORD,
-            )
-    if record is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=NO_PHOTO)
-    return record
+    is_moder = await role_service.is_moder(user)
+    if record is None or record.user_id != user.id and not is_moder:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=NO_RECORD,
+        )
+    if record.user_id == user.id or is_moder:
+        return record
 
 
 async def create_photo(
