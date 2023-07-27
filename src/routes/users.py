@@ -12,6 +12,7 @@ from src.database.models import User
 from src.repository import users as repository_users
 from src.services.auth import token_service
 from src.messages import *
+from main import has_role
 
 
 router = APIRouter(prefix="/users", tags=["users"])
