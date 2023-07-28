@@ -53,6 +53,7 @@ NO_RECORD = "There is no record with such ID or it is not your record"
 ONLY_IMGS = "You can only upload images"
 NO_PHOTO_OR_NOT_YOUR = "There is no photo with such ID or it is not your photo"
 NO_PHOTO = "There is no photo with such ID"
+NO_PHOTO_URL = "There is no photo with such image url"
 USER_ACTIVE_CHANGED = "User active status was successfully changed"
 LOGGED_OUT = 'Logged out successfully.'
 
@@ -87,3 +88,5 @@ AUTHOR_ID_NOT_FOUND = 'Author with such is was not found'
 ADMIN_PERMISSIONS = [UserRole.ADMIN]
 MODERATOR_PERMISSIONS = [UserRole.ADMIN, UserRole.MODERATOR]
 NO_PERMISSIONS = 'You do not have access to this route'
+
+QR_SERVICE_EMAIL = 'qr@service.email'

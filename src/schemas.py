@@ -129,6 +129,12 @@ class PhotoHandleModel(BaseModel):
     photo_id: str
 
 
+class PhotoQrResponse(BaseModel):
+    photo_id: str
+    url: str
+    qrcode: str
+    
+
 class CommentModel(BaseModel):
     photo_id: str
     text: str
