@@ -30,7 +30,7 @@ tag_photo_association = Table(
 message_chat_association = Table(
     "message_chat_association",
     Base.metadata,
-    Column("message_id", String, ForeignKey("messages.id")),
+    Column("message_id", String, ForeignKey("messages.id", ondelete='CASCADE')),
     Column("chat_id", String, ForeignKey("chats.id", ondelete="CASCADE")),
 )
 
