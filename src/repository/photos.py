@@ -1,9 +1,11 @@
 from typing import List
+import io
 
 from sqlalchemy.orm import Session
 from fastapi import UploadFile, HTTPException, status
 from PIL import Image
 from cloudinary.exceptions import Error as CloudinaryError
+import qrcode
 
 from src.database.models import Photo, User, Tag, Comment
 from src.schemas import TagModel
@@ -149,7 +151,7 @@ async def add_filter(photo_id: str, filtername: str, user: User, db: Session) ->
     if photo:
         try:
             transformed_image_url = UploadService.add_filter(photo.url, filtername)
-        except CloudinaryError as er:
+        except CloudinaryError as err:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=NO_FILTER)
         photo.url = transformed_image_url
         db.add(photo)
@@ -159,3 +161,29 @@ async def add_filter(photo_id: str, filtername: str, user: User, db: Session) ->
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail=NO_PHOTO_OR_NOT_YOUR
     )
+
+
+async def create_qrcode(photo: Photo, db: Session) -> str:
+    url = photo.url
+    qr = qrcode.make(url)
+    qr = qr.get_image()
+
+    width = qr.width
+    height = qr.height
+
+    buffer = io.BytesIO()
+    qr.save(buffer, format='PNG')
+    image_bytes = buffer.getvalue()
+
+    public_id = UploadService.create_name(QR_SERVICE_EMAIL, "RestAPI")
+
+    r = UploadService.upload(image_bytes, public_id)
+
+    url = UploadService.get_url(public_id, r.get("version"), width=width, height=height)
+    photo.qr_code = url
+
+    db.add(photo)
+    db.commit()
+    db.refresh(photo)
+
+    return url

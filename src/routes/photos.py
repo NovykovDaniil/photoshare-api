@@ -19,7 +19,7 @@ from src.schemas import (
     PhotosResponse,
     PhotoTagModel,
     PhotoFilterModel,
-    PhotoHandleModel,
+    PhotoQrResponse,
     PhotoEditModel,
 )
 from src.database.models import Photo, User
@@ -119,9 +119,8 @@ async def add_filter(
     return {"photo": photo, "detail": PHOTO_FILTER_ADDED}
 
 
-#todo: QR-code
-#@router.put("/{photo_id}/transform", response_model=PhotoQrResponse)
-async def transform_photo(body: PhotoHandleModel, db: Session = Depends(get_db)):
-    photo = await repository_photos.get_record(body.photo_id, Photo, db)
-    qrcode = await repository_photos.create_qrcode(photo.url, db)
-    return {"photo_id": body.photo_id, "url": photo.url, "qrcode": qrcode}
+@router.put("/{photo_id}/transform", response_model=PhotoQrResponse)
+async def transform_photo(photo_id: str, db: Session = Depends(get_db)):
+    photo = await repository_photos.get_record(photo_id, Photo, db)
+    qrcode = await repository_photos.create_qrcode(photo, db)
+    return {"photo_id": photo_id, "url": photo.url, "qrcode": qrcode}
