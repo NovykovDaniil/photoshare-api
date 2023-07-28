@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -133,7 +133,7 @@ class PhotoQrResponse(BaseModel):
     photo_id: str
     url: str
     qrcode: str
-    
+
 
 class CommentModel(BaseModel):
     photo_id: str
@@ -242,4 +242,55 @@ class SubscriptionResponse(BaseModel):
 
 class SubscriptionsResponse(BaseModel):
     subscriptions: List[SubscriptionDb]
+    detail: str
+
+
+class ChatModel(BaseModel):
+    interlocutor_id: str
+
+
+class ChatDb(BaseModel):
+    id: str
+    interlocutor_1: str
+    interlocutor_2: str
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class ChatResponse(BaseModel):
+    chat: ChatDb
+    detail: str
+
+
+class MessageModel(BaseModel):
+    chat_id: str
+    text: str
+
+
+class MessageDb(BaseModel):
+    id: str
+    text: str
+    sender: str
+    recipient: str
+    created_at: datetime
+    updated_at: datetime | None
+
+    class Config:
+        orm_mode = True
+
+    
+class MessageResponse(BaseModel):
+    message: MessageDb
+    detail: str
+
+
+class MessageEditModel(BaseModel):
+    message_id: str
+    text: str
+
+
+class MessagesResponse(BaseModel):
+    messages: List[MessageDb]
     detail: str

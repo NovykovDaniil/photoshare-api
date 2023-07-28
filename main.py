@@ -2,7 +2,7 @@ import redis.asyncio as redis
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.routes import auth, tags, photos, users, comments, estimates, subscriptions, stories
+from src.routes import auth, tags, photos, users, comments, estimates, subscriptions, stories, chats, messages
 
 
 app = FastAPI()
@@ -15,6 +15,9 @@ app.include_router(comments.router, prefix="/api")
 app.include_router(estimates.router, prefix="/api")
 app.include_router(subscriptions.router, prefix="/api")
 app.include_router(stories.router, prefix="/api")
+app.include_router(chats.router, prefix="/api")
+app.include_router(messages.router, prefix="/api")
+
 
 app.add_middleware(
     CORSMiddleware,

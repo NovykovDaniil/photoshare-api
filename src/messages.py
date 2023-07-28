@@ -90,3 +90,20 @@ MODERATOR_PERMISSIONS = [UserRole.ADMIN, UserRole.MODERATOR]
 NO_PERMISSIONS = 'You do not have access to this route'
 
 QR_SERVICE_EMAIL = 'qr@service.email'
+
+
+CHAT_EXISTS = 'Chat with such interlocutors exists'
+CHAT_CREATED = 'Chat was successfully created'
+CHAT_DELETED = 'Chat was successfully deleted'
+CHAT_DOES_NOT_EXISTS = 'Chat with such ID does not exist'
+CHAT_FOUND = 'Chat successfully found'
+CHAT_NOT_FOUND = 'Chat was not found'
+
+
+MESSAGE_CREATED = 'Message was successfully created'
+MESSAGE_EDITED = 'Message was successfully edited'
+MESSAGE_DOES_NOT_EXIST = 'There is no message with such ID'
+MESSAGE_DELETED = 'Message was successfully deleted'
+MESSAGE_FOUND = 'Message was successfully found'
+MESSAGES_FOUND = 'Messages was successfully found'
+NO_MESSAGES = 'There are no messages in chat'
