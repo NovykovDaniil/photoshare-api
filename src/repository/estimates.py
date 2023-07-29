@@ -31,13 +31,16 @@ async def estimate_photo(photo_id: str, estimate: int, user: User, db: Session) 
     new_estimate = Estimate(estimate=estimate, photo_id=photo_id, user_id=user.id)
     current_estimates = await get_estimates(photo_id, db) or list()
     current_estimates.append(new_estimate.estimate)
-    raiting = sum(current_estimates) / len(current_estimates)
-    photo.raiting = raiting
-    db.add(new_estimate)
+    rating = sum(current_estimates) / len(current_estimates)
+    photo.rating = rating
     db.add(photo)
     db.commit()
-    db.refresh(new_estimate)
     db.refresh(photo)
+
+    db.add(new_estimate)
+    db.commit()
+    db.refresh(new_estimate)
+
     return new_estimate
 
 
@@ -48,9 +51,14 @@ async def delete_estimate(estimate_id: str, user: User, db: Session) -> Estimate
         db.delete(estimate)
         db.commit()
         estimates = await get_estimates(photo.id, db)
-        raiting = sum(estimates) / len(estimates)
-        photo.raiting = raiting
+        rating = sum(estimates) / len(estimates)
+        photo.rating = rating
         db.add(photo)
         db.commit()
         db.refresh(photo)
     return estimate
+
+
+async def get_photo_estimates(photo_id: str, db: Session) -> List[Estimate]:
+    estimates = [est for est in db.query(Estimate).filter(Estimate.photo_id == photo_id).all()]
+    return estimates or None

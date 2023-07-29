@@ -1,8 +1,8 @@
-"""Init
+"""init
 
-Revision ID: 3750502a4779
+Revision ID: 779395003853
 Revises: 
-Create Date: 2023-07-27 10:12:40.881417
+Create Date: 2023-07-29 12:08:15.408462
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3750502a4779'
+revision = '779395003853'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -80,7 +80,7 @@ def upgrade() -> None:
     sa.Column('filtername', sa.String(), nullable=True),
     sa.Column('width', sa.Integer(), nullable=True),
     sa.Column('height', sa.Integer(), nullable=True),
-    sa.Column('rating', sa.Float(), nullable=True),
+    sa.Column('rating', sa.Float(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
@@ -130,7 +130,7 @@ def upgrade() -> None:
     sa.Column('message_id', sa.String(), nullable=True),
     sa.Column('chat_id', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['chat_id'], ['chats.id'], ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['message_id'], ['messages.id'], )
+    sa.ForeignKeyConstraint(['message_id'], ['messages.id'], ondelete='CASCADE')
     )
     op.create_table('tag_photo_association',
     sa.Column('tag_id', sa.String(), nullable=True),

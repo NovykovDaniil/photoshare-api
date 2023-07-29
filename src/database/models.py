@@ -119,7 +119,7 @@ class Photo(Base):
     filtername = Column(String, default="Default")
     width = Column(Integer, nullable=True)
     height = Column(Integer, nullable=True)
-    rating = Column(Float, nullable=True, default=None)
+    rating = Column(Float, nullable=False, default=0)
 
 
 class Story(Base):
