@@ -71,12 +71,11 @@ async def edit_description(
 @router.get("/", response_model=PhotosResponse)
 async def search_photos(
     tag: str = Query(None, description="Tag for searching photos", min_length=1),
-    keyword: str = Query(
-        None, description="Keyword for searching photos", min_length=1
-    ),
+    keyword: str = Query(None, description="Keyword for searching photos", min_length=1),
+    filter_by: Optional[str] = Query(None, description="Filter for searching photos", regex="^(rating|created_at)$"),
     db: Session = Depends(get_db),
 ):
-    photos = await repository_photos.search_photos(tag, keyword, db)
+    photos = await repository_photos.search_photos(tag, keyword, filter_by, db)
     if photos:
         return {"photos": photos, "detail": PHOTOS_SEARCHED}
     raise HTTPException(

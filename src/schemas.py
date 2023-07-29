@@ -88,13 +88,13 @@ class PhotoDb(BaseModel):
     description: str | None
     created_at: datetime
     user_id: str
-    url: str | None
+    url: str 
     qr_code: str | None
     filename: str
     filtername: str
-    width: int | None
-    height: int | None
-    raiting: float | None
+    width: int 
+    height: int 
+    rating: float
 
     class Config:
         orm_mode = True

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 import io
 
 from sqlalchemy.orm import Session
@@ -118,7 +118,7 @@ async def edit_description(
     return photo
 
 
-async def search_photos(tag: str, keyword: str, db: Session) -> List[Photo]:
+async def search_photos(tag: str, keyword: str, filter_by: str, db: Session) -> List[Photo]:
     result = []
     tag = db.query(Tag).filter(Tag.name == tag).first()
     if tag:
@@ -129,6 +129,12 @@ async def search_photos(tag: str, keyword: str, db: Session) -> List[Photo]:
             db.query(Photo).filter(Photo.description.like(f"%{keyword}%")).all()
         )
         result.extend(searched_by_keyword)
+    if result and filter_by:
+        if filter_by == 'rating':
+            result = sorted(result, key=lambda x: x.rating)
+            result = result[::-1]
+        elif filter_by == 'created_at':
+            result = sorted(result, key=lambda x: x.created_at)
     return result
 
 

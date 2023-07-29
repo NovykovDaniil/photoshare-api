@@ -46,7 +46,7 @@ async def get_estimates(
     user: User = Depends(token_service.get_current_user),
     db: Session = Depends(get_db),
 ):
-    estimates = await repository_estimates.get_estimates(photo_id, db)
+    estimates = await repository_estimates.get_photo_estimates(photo_id, db)
     if estimates is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=ESTIMATES_NOT_FOUND
