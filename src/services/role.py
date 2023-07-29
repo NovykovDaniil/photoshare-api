@@ -1,7 +1,3 @@
-from fastapi import Depends, HTTPException, status
-
-from src.database.models import User
-from src.services.auth import token_service
 from src.messages import *
 
 
