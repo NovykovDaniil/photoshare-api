@@ -49,6 +49,7 @@ async def test_estimate_photo(db_session):
     assert await estimate_photo(photo_id, 4, user, db_session) is not None
     assert await estimate_photo(photo_id, 3, user, db_session) is None
 
+
 @pytest.mark.asyncio
 async def test_get_photo_estimates(db_session):
     photo_id = "photo_654"
