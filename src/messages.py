@@ -107,3 +107,5 @@ MESSAGE_DELETED = 'Message was successfully deleted'
 MESSAGE_FOUND = 'Message was successfully found'
 MESSAGES_FOUND = 'Messages was successfully found'
 NO_MESSAGES = 'There are no messages in chat'
+
+NOT_FOUND = 'Not Found'
