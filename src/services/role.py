@@ -1,4 +1,4 @@
-from src.messages import *
+from src.constants import *
 
 
 class Role:

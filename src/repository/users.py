@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 from src.database.models import User, UserRole
 from src.services.role import role_service
 from src.schemas import UserModel
-from src.messages import *
+from src.constants import *
 
 
 async def get_user_by_email(email: str, db: Session) -> User:

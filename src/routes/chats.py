@@ -17,7 +17,7 @@ from src.schemas import (
 from src.database.models import User
 from src.repository import chats as repository_chats
 from src.services.auth import token_service
-from src.messages import *
+from src.constants import *
 
 
 router = APIRouter(prefix="/chats", tags=["chats"])

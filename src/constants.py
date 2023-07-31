@@ -109,3 +109,7 @@ MESSAGES_FOUND = 'Messages was successfully found'
 NO_MESSAGES = 'There are no messages in chat'
 
 NOT_FOUND = 'Not Found'
+
+
+ROLES = {"user": ("I am user", "ada"),}
+NO_TOKENS = 'Unfortunately, ChatGPT tokens have run out'

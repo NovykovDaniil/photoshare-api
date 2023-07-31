@@ -25,7 +25,7 @@ from src.schemas import (
 from src.database.models import Photo, User
 from src.repository import photos as repository_photos
 from src.services.auth import token_service
-from src.messages import *
+from src.constants import *
 
 
 router = APIRouter(prefix="/photos", tags=["photos"])

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -294,3 +294,19 @@ class MessageEditModel(BaseModel):
 class MessagesResponse(BaseModel):
     messages: List[MessageDb]
     detail: str
+
+
+class GPTModel(BaseModel):
+    question: str
+
+
+class GPTResponse(BaseModel):
+    answer: str
+
+
+class GPTImageModel(BaseModel):
+    description: str
+
+
+class GPTImageResponse(BaseModel):
+    url: str

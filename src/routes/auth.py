@@ -31,7 +31,7 @@ from src.schemas import (
 from src.repository import users as repository_users
 from src.services.auth import password_service, token_service
 from src.services.email import send_email_confirmation, send_email_reset
-from src.messages import *
+from src.constants import *
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])

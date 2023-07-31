@@ -12,7 +12,7 @@ from src.schemas import TagModel
 from src.repository.tags import create_tag
 from src.services.photos import UploadService
 from src.services.role import role_service
-from src.messages import *
+from src.constants import *
 
 
 async def inspect_tags(tag_names: List[str], db: Session) -> List[Tag]:

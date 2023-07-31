@@ -5,7 +5,7 @@ from fastapi import HTTPException, status
 
 from src.database.models import User, Message, Chat
 from src.services.role import role_service
-from src.messages import *
+from src.constants import *
 
 
 async def create_message(chat_id: str, text: str, user: User, db: Session) -> Message:
