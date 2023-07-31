@@ -16,7 +16,7 @@ from src.schemas import (
 from src.database.models import User
 from src.repository import stories as repository_stories
 from src.services.auth import token_service
-from src.messages import *
+from src.constants import *
 
 
 router = APIRouter(prefix="/stories", tags=["stories"])

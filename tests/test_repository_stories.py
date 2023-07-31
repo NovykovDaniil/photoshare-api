@@ -9,7 +9,7 @@ from src.database.models import User, Story, Subscription
 from src.services.photos import UploadService
 from src.services.role import role_service
 from src.repository.stories import verify_story, get_story, create_story, delete_story, recommend
-from src.messages import ONLY_VIDEO, STORY_NOT_AVALIABLE, STORY_NOT_YOUR
+from src.constants import ONLY_VIDEO, STORY_NOT_AVALIABLE, STORY_NOT_YOUR
 
 class TestStories(IsolatedAsyncioTestCase):
     @pytest.fixture(autouse=True)

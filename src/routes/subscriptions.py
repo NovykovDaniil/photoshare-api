@@ -21,7 +21,7 @@ from src.schemas import (
 from src.database.models import User
 from src.repository import subscriptions as repository_subscriptions
 from src.services.auth import token_service
-from src.messages import *
+from src.constants import *
 
 
 router = APIRouter(prefix="/subscriptions", tags=["subscriptions"])

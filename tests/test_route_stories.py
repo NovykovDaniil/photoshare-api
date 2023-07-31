@@ -9,7 +9,7 @@ from src.repository import stories as repository_stories
 from src.services.auth import token_service
 from src.schemas import StoryResponse, StoriesResponse
 from src.database.db import get_db
-from src.messages import NO_STORY, STORY_CREATED, STORY_DELETED, STORY_FOUND, NOT_FOUND
+from src.constants import NO_STORY, STORY_CREATED, STORY_DELETED, STORY_FOUND, NOT_FOUND
 from main import app
 
 class TestStories(IsolatedAsyncioTestCase):

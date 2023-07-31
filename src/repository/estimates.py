@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from src.database.models import Photo, User, Estimate
 from src.repository.photos import get_record
 from src.services.role import role_service
-from src.messages import *
+from src.constants import *
 
 
 async def is_exists_estimate(photo_id: str, user: User, db: Session):

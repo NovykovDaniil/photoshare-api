@@ -10,7 +10,7 @@ from src.database.db import get_db
 from src.schemas import TagModel, TagResponse
 from src.database.models import Tag
 from src.repository import tags as repository_tags
-from src.messages import TAG_EXISTS, TAG_CREATED
+from src.constants import TAG_EXISTS, TAG_CREATED
 
 
 router = APIRouter(prefix="/tags", tags=["tags"])

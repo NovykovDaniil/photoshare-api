@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 
 from src.database.models import Photo, User, Comment
 from src.repository.photos import get_record, verify_record
-from src.messages import *
+from src.constants import *
 
 
 async def create_comment(photo_id: str, text: str, user: User, db: Session) -> Comment:

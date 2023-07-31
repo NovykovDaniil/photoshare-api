@@ -7,7 +7,7 @@ from fastapi import UploadFile, HTTPException, status
 from src.database.models import User, Story, Subscription
 from src.services.photos import UploadService
 from src.services.role import role_service
-from src.messages import *
+from src.constants import *
 
 
 async def verify_story(story: Story, user: User) -> bool:

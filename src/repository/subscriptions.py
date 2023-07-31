@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 
 from src.database.models import User, Subscription
-from src.messages import *
+from src.constants import *
 
 
 async def subscribe(author_id: str, user: User, db: Session) -> Subscription:

@@ -11,7 +11,7 @@ from src.schemas import UserResponse, UserEditModel, UserBanModel
 from src.database.models import User
 from src.repository import users as repository_users
 from src.services.auth import token_service
-from src.messages import *
+from src.constants import *
 
 
 router = APIRouter(prefix="/users", tags=["users"])
