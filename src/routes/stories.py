@@ -47,6 +47,6 @@ async def get_story(story_id: str, db: Session = Depends(get_db)):
 @router.get('/', response_model=StoriesResponse)
 async def recommend(user: User = Depends(token_service.get_current_user), db: Session = Depends(get_db)):
     stories = await repository_stories.recommend(user, db)
-    if stories is None:
+    if not stories:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=NO_STORIES)
     return {'stories': stories, 'detail': STORIES_FOUND}
