@@ -56,11 +56,11 @@ async def get_estimates(
 
 @router.delete("/{estimate_id}", response_model=EstimateResponse)
 async def delete_esitmate(
-    body: EstimateDeleteModel,
+    estimate_id: str,
     user: User = Depends(token_service.get_current_user),
     db: Session = Depends(get_db),
 ):
-    estimate = await repository_estimates.delete_estimate(body.estimate_id, user, db)
+    estimate = await repository_estimates.delete_estimate(estimate_id, user, db)
     if estimate is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=NO_ESTIMATE)
     return {"estimate": estimate, "detail": ESTIMATE_DELETED}

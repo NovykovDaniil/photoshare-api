@@ -64,6 +64,7 @@ ESTIMATES_FOUND = "Estimates were successfully found"
 ESTIMATES_NOT_FOUND = "There are no estimates"
 NO_ESTIMATE = "There is no estimate with such ID"
 ESTIMATE_DELETED = "Estimate was successfully deleted"
+ESTIMATE_NOT_FOUND = 'There is no estimate with such ID'
 
 
 STORY_CREATED = 'Story successfully created'

@@ -36,7 +36,7 @@ async def create_comment(
     return {"comment": comment, "detail": COMMENT_CREATED}
 
 
-@router.put("/{photo_id}", response_model=CommentResponse)
+@router.put("/{comment_id}", response_model=CommentResponse)
 async def edit_comment(
     body: CommentEditModel,
     user: User = Depends(token_service.get_current_user),
@@ -50,11 +50,11 @@ async def edit_comment(
 
 @router.delete("/{comment_id}", response_model=CommentResponse)
 async def delete_comment(
-    body: CommentHandleModel,
+    comment_id: str,
     user: User = Depends(token_service.get_current_user),
     db: Session = Depends(get_db),
 ):
-    comment = await repository_comments.delete_comment(body.comment_id, user, db)
+    comment = await repository_comments.delete_comment(comment_id, user, db)
     if comment is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=COMMENT_DOES_NOT_EXIST

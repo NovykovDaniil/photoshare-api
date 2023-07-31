@@ -2,6 +2,7 @@ from typing import List
 
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
+from fastapi import HTTPException, status
 
 from src.database.models import Photo, User, Estimate
 from src.repository.photos import get_record
@@ -46,12 +47,16 @@ async def estimate_photo(photo_id: str, estimate: int, user: User, db: Session) 
 
 async def delete_estimate(estimate_id: str, user: User, db: Session) -> Estimate:
     estimate = db.query(Estimate).filter(Estimate.id == estimate_id).first()
+    if estimate is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=ESTIMATE_NOT_FOUND)
     photo = db.query(Photo).filter(Photo.id == estimate.photo_id).first()
-    if estimate and estimate.user_id == user.id or await role_service.is_admin(user):
+    if estimate.user_id == user.id or await role_service.is_admin(user):
         db.delete(estimate)
         db.commit()
         estimates = await get_estimates(photo.id, db)
-        rating = sum(estimates) / len(estimates)
+        rating = 0
+        if estimates is not None:
+            rating = sum(estimates) / len(estimates)
         photo.rating = rating
         db.add(photo)
         db.commit()
