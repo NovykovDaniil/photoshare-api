@@ -26,6 +26,7 @@ Overall, we are creating a functional and user-friendly application that brings 
 <a href="https://redis.io/" target="_blank" rel="noreferrer"> <img src="https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" width="50" height="30"/></a>
 <a href="https://cloudinary.com/" target="_blank" rel="noreferrer">
   <img src="docs/cloudinary_logo.png" alt="cloudinary" width="100" height="30"/>
+  <img src="docs/chatgpt_logo.png" alt="Chat_gpt" width="30" height="30"/>
 </a>
 
 
