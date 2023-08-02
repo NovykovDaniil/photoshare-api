@@ -148,7 +148,6 @@ async def request_email(
     background_tasks: BackgroundTasks,
     request: Request,
     db: Session = Depends(get_db),
-    user: User = Depends(token_service.get_current_user),
 ):
     user = await repository_users.get_user_by_email(body.email, db)
     if user.confirmed:
@@ -207,21 +206,14 @@ async def change_password(
     db: Session = Depends(get_db),
     user: User = Depends(token_service.get_current_user),
 ):
-    user = await repository_users.get_user_by_email(body.email, db)
-    if user:
-        if body.current_password == body.new_password:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST, detail=SAME_PASSWORDS
-            )
-        if password_service.verify_password(body.current_password, user.password):
-            hashed_new_password = password_service.hash_password(body.new_password)
-            await repository_users.change_password(user, hashed_new_password, db)
-            return {"message": PASSWORD_CHANGED}
+    if body.current_password == body.new_password:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail=WRONG_PASSWORD
+            status_code=status.HTTP_400_BAD_REQUEST, detail=SAME_PASSWORDS
         )
+    if password_service.verify_password(body.current_password, user.password):
+        hashed_new_password = password_service.hash_password(body.new_password)
+        await repository_users.change_password(user, hashed_new_password, db)
+        return {"message": PASSWORD_CHANGED}
     raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=USER_NOT_FOUND,
+        status_code=status.HTTP_400_BAD_REQUEST, detail=WRONG_PASSWORD
     )
-
