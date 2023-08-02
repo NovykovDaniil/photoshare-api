@@ -148,7 +148,7 @@ async def request_email(
     background_tasks: BackgroundTasks,
     request: Request,
     db: Session = Depends(get_db),
-    _: HTTPAuthorizationCredentials = Security(security),
+    user: User = Depends(token_service.get_current_user),
 ):
     user = await repository_users.get_user_by_email(body.email, db)
     if user.confirmed:
@@ -205,7 +205,7 @@ async def reset_password(
 async def change_password(
     body: ChangePassword,
     db: Session = Depends(get_db),
-    _: HTTPAuthorizationCredentials = Security(security),
+    user: User = Depends(token_service.get_current_user),
 ):
     user = await repository_users.get_user_by_email(body.email, db)
     if user:
