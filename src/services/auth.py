@@ -132,7 +132,7 @@ class Token(Info):
     
 
     async def ban_access_token(self, token: str = Depends(oauth2_scheme)) -> None:
-        redis_client.set('banned', token, ex=900)
+        await redis_client.set('banned', token, ex=900)
 
 
 password_service = Password()
