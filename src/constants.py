@@ -114,3 +114,6 @@ NOT_FOUND = 'Not Found'
 
 ROLES = {"user": ("I am user", "ada"),}
 NO_TOKENS = 'Unfortunately, ChatGPT tokens have run out'
+
+
+BASE_URL = 'http://44.211.129.207/'

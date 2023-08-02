@@ -60,7 +60,7 @@ async def signup(
         )
     body.password = password_service.hash_password(body.password)
     new_user = await repository_users.create_user(body, db)
-    background_tasks.add_task(send_email_confirmation, new_user.email, new_user.username, request.base_url)
+    background_tasks.add_task(send_email_confirmation, new_user.email, new_user.username, BASE_URL)
     return {
         "user": new_user,
         "detail": USER_CREATED,
